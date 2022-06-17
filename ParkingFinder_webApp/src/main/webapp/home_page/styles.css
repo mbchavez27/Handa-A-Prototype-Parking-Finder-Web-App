@@ -1,0 +1,150 @@
+body {
+	background: linear-gradient(0deg, #050a30ee, #050a30ee),
+		url("parkingBackground.jpg");
+	background-size: cover;
+	color: #f4f6fc;
+}
+
+/* nav */
+.nav {
+	display: flex;
+	background-color: #091042;
+}
+
+.logo {
+	margin-top: 0.5%;
+	margin-left: 2%;
+}
+
+.logo img {
+	width: 7em;
+	margin-bottom: 1%;
+	margin-left: 1em;
+}
+
+.logo-white {
+	color: #f4f6fc;
+}
+
+.logo-yellow {
+	color: #e4d213;
+}
+
+.logo h1 {
+	font-family: "Fredoka One", cursive;
+	letter-spacing: 10px;
+	font-size: 2em;
+	margin-top: 0.2em;
+}
+
+.profile_picture {
+	margin-right: 2%;
+}
+
+.profile_picture img {
+	width: 5em;
+	height: 5em;
+	margin-bottom: 1%;
+	margin-top: 4%;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.logOutButton {
+	visibility: hidden;
+	transform: translateY(-50%);
+	transition: 1s;
+	border: none;
+	color: #f4f6fc;
+	font-weight: 700;
+	font-size: 1.5em;
+	margin-left: -.6em;
+	margin-top: .5em;
+	z-index: 999;
+	position: absolute;
+	background-color: #010210;
+}
+
+/* content */
+a {
+	text-decoration: none;
+	color: #f4f6fc;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #f4f6fc;
+}
+
+h1, h3 {
+	font-family: "Montserrat", sans-serif;
+	font-weight: 800;
+}
+
+h2, p {
+	font-family: "Montserrat", sans-serif;
+	font-weight: 200;
+}
+
+.greetingsCard {
+	margin-top: 3%;
+	margin-bottom: 6%;
+	text-align: center;
+}
+
+.menuCard {
+	border-radius: 10px;
+	padding-left: 1%;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	margin-bottom: 3%;
+	margin-right: 0.5%;
+	background-color: #010210cd;
+	width: 30%;
+	transition: 0.2s;
+}
+
+.menuCard:hover {
+	transition: 0.2s;
+	transform: translateY(-10%);
+}
+
+.menuCard:active {
+	transition: 0.2s;
+	transform: translateY(0%);
+}
+
+.menuCard:nth-child(even) {
+	margin-left: 2%;
+}
+
+.greetingsCard h1 {
+	font-size: 3.5em;
+}
+
+.greetingsCard h2 {
+	font-size: 1.5em;
+}
+
+.menuCard h3 {
+	font-size: 1.5em;
+}
+
+.menuCard p {
+	font-size: 1.15em;
+}
+
+@media only screen and (max-width: 500px) {
+	.menuCard {
+		width: 50%;
+		margin-left: 0%;
+		margin-bottom: 6%;
+		padding-left: 3%;
+		padding-top: 3%;
+		padding-bottom: 1%;
+	}
+	.greetingsCard {
+		margin-top: 10%;
+		margin-bottom: 10%;
+	}
+}

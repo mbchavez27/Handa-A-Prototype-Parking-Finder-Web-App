@@ -1,0 +1,125 @@
+body {
+  background: linear-gradient(0deg, #050a30ee, #050a30ee),
+    url("parkingBackground.jpg");
+  background-size: cover;
+  color: #f4f6fc;
+  font-family: "Varela Round", sans-serif;
+}
+
+.logo img {
+  width: 10em;
+  margin-bottom: 0.2em;
+  margin-left: 3em;
+  margin-top: 2em;
+}
+
+.logo h1 {
+  letter-spacing: 20px;
+  font-size: 3.5em;
+  margin-top: 0.2em;
+}
+.logo-white {
+  color: #f4f6fc;
+}
+
+.logo-yellow {
+  color: #e4d213;
+}
+
+h1 {
+  font-family: "Fredoka One", cursive;
+}
+
+a {
+  text-decoration: none;
+  color: #f4f6fc;
+}
+a:hover {
+  text-decoration: underline;
+  color: #f4f6fc;
+}
+.logInForm form {
+  font-size: 1.2em;
+  margin-top: 6%;
+  margin-bottom: 6%;
+}
+
+.logInForm form button {
+  background-color: #0102106c;
+  border: none;
+  color: #f4f6fc;
+  font-size: 1.5em;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+.logInForm form button:hover {
+  transition: 0.5s;
+  background-color: #010210fa;
+}
+.logInForm form button:active {
+  transition: 0.5s;
+  background-color: #0102106c;
+}
+
+.details_label,
+.createAccount {
+  font-size: 1.2em;
+}
+
+.userDetails {
+  border: none;
+  border-bottom: 2px solid #cae8ff;
+  background: none;
+  color: #f4f6fc;
+  margin-bottom: 2em;
+  width: 92%;
+  outline: none;
+}
+
+.userDetails::placeholder {
+  color: #ced0d6;
+}
+
+.rememberMe_checkBox {
+  background-color: red;
+}
+
+.rememberMe {
+  text-decoration: none;
+  margin-right: 2em;
+}
+.rememberMe:hover {
+  text-decoration: underline;
+}
+
+.logInButton,
+.createAccount {
+  text-align: center;
+}
+
+.content {
+  background-color: #050a30;
+  border-radius: 2em;
+  width: 25%;
+  margin-top: 6em;
+}
+
+@media only screen and (max-width: 1300px) {
+  .content {
+    width: 50%;
+    margin-top: 1.5em;
+  }
+  .rememberMe {
+    margin-right: 1.5em;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .content {
+    width: 100%;
+    margin-top: 1.5em;
+  }
+  .rememberMe {
+    margin-right: 1.5em;
+  }
+}

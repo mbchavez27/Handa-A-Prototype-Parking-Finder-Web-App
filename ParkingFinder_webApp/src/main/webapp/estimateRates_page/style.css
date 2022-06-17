@@ -1,0 +1,204 @@
+body {
+	background: linear-gradient(0deg, #050a30ee, #050a30ee),
+		url("parkingBackground.jpg");
+	background-size: cover;
+	color: #f4f6fc;
+}
+
+/* nav */
+.nav {
+	display: flex;
+	background-color: #091042;
+}
+
+.logo {
+	margin-top: 0.5%;
+	margin-left: 2%;
+}
+
+.logo img {
+	width: 7em;
+	margin-bottom: 1%;
+	margin-left: 1em;
+}
+
+.logo-white {
+	color: #f4f6fc;
+}
+
+.logo-yellow {
+	color: #e4d213;
+}
+
+.logo h1 {
+	font-family: "Fredoka One", cursive;
+	letter-spacing: 10px;
+	font-size: 2em;
+	margin-top: 0.2em;
+}
+
+.profile_picture {
+	margin-right: 2%;
+}
+
+.profile_picture img {
+	width: 5em;
+	height: 5em;
+	margin-bottom: 1%;
+	margin-top: 4%;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.logo a {
+	text-decoration: none;
+}
+
+.logOutButton {
+	visibility: hidden;
+	transform: translateY(-50%);
+	transition: 1s;
+	border: none;
+	color: #f4f6fc;
+	font-weight: 700;
+	font-size: 1.5em;
+	margin-left: -.6em;
+	margin-top: .5em;
+	z-index: 999;
+	position: absolute;
+	background-color: #010210;
+}
+
+/* content */
+h1 {
+	font-family: "Montserrat", sans-serif;
+	font-weight: 700;
+}
+
+.parkingLotName {
+	margin-top: 2em;
+	margin-left: 2em;
+}
+
+.parkingLotName h1 {
+	font-style: italic;
+	font-size: 3em;
+}
+
+.parkingLotName a {
+	text-decoration: none;
+	color: #f4f6fc;
+	transition: .1s;
+}
+
+.parkingLotName a:hover {
+	font-size: 1.25em;
+	transition: .3s;
+}
+
+.parkingLotName span {
+	font-weight: 100;
+	padding-right: 0.3em;
+}
+
+.flexRate {
+	display: flex;
+	margin-left: -2em;
+}
+
+#estimatedResults img {
+	width: 10em;
+	image-rendering: crisp-edges;
+}
+
+#estimatedResults h2 {
+	margin-top: 0.2em;
+	font-size: 2em;
+	font-weight: 100;
+	letter-spacing: 0.2em;
+}
+
+#estimatedResults p {
+	font-size: 2em;
+	font-size: 2em;
+	font-weight: 700;
+	letter-spacing: 0.2em;
+}
+
+#parkingRateInfo h2 {
+	color: #e4d213;
+}
+
+#parkingRateInfo p {
+	font-weight: 100;
+	font-size: 1.25em;
+	letter-spacing: 0.15em;
+}
+
+#parkingRateInfo h2 {
+	color: #e4d213;
+	font-size: 2.5em;
+	letter-spacing: 0.05em;
+}
+
+#parkingRateInfo h3 {
+	font-size: 2em;
+	letter-spacing: 0.05em;
+}
+
+#parkingRateInfo h4 {
+	font-size: 1em;
+	letter-spacing: 0.05em;
+}
+
+.menuCard form {
+	font-family: "Montserrat", sans-serif;
+}
+
+.menuCard label {
+	font-weight: 100;
+	font-size: 2em;
+}
+
+.menuCard button {
+	background-color: #010210;
+	border: none;
+	color: #f4f6fc;
+	font-weight: 700;
+	font-size: 1.5em;
+	margin-left: 2em;
+}
+
+.menuCard input {
+	background-color: rgba(255, 255, 255, 0.2);
+	border: none;
+	color: #f4f6fc;
+	font-weight: 700;
+	font-size: 1.5em;
+	margin-top: 1em;
+}
+
+.menuCard input:focus {
+	outline: none;
+}
+
+.menuCard {
+	border-radius: 10px;
+	background-color: #010210cb;
+	margin-top: 2em;
+	margin-left: 2em;
+	margin-bottom: 2em;
+	padding-top: 1em;
+	padding-left: 1.25em;
+	padding-bottom: 1em;
+	width: 30%;
+}
+
+@media only screen and (max-width: 1300px) {
+	.menuCard {
+		width: 100%;
+	}
+	.parkingLotName, .menuCard {
+		margin-left: 0em;
+	}
+}
