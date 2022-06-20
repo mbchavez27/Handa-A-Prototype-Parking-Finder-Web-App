@@ -60,25 +60,49 @@
 				<div class="flexText">
 					<!-- Connection from MYSQL && Adding Variables -->
 					<%
-					String ID = "30";
-					String parkingLot_ID = request.getParameter("selectedParkingLot");
-					if (parkingLot_ID != null) {
+					try {
+						Class.forName("com.mysql.jdbc.Driver");
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					}
+
+					Connection connect = null;
+					Statement stmnt = null;
+					ResultSet resultSets = null;
+
+					try {
+						connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingfinder_db", "root", "strawberry");
+						stmnt = connect.createStatement();
+						String sql = "SELECT * FROM currentuser_tbl";
+
+						resultSets = stmnt.executeQuery(sql);
+
+						while (resultSets.next()) {
+							String ID = resultSets.getString("user_ID");
+							String parkingLot_ID = request.getParameter("selectedParkingLot");
+							if (parkingLot_ID != null) {
 						if (ID != null) {
 							Connection con = null;
 							PreparedStatement ps = null;
-							int user_ID = Integer.parseInt(ID);
+							int userID = Integer.parseInt(ID);
 							try {
-						Class.forName(driverName);
-						con = DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingfinder_db", "root", "strawberry");
-						String sql = "Update user_tbl set parkingLot_ID=? where user_ID=" + 30;
-						ps = con.prepareStatement(sql);
-						ps.setString(1, parkingLot_ID);
-						int i = ps.executeUpdate();
-							} catch (SQLException sql) {
-						request.setAttribute("error", sql);
-						out.println(sql);
+								Class.forName(driverName);
+								con = DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingfinder_db", "root",
+										"strawberry");
+								String sql2 = "Update user_tbl set parkingLot_ID=? where user_ID=" + ID;
+								ps = con.prepareStatement(sql2);
+								ps.setString(1, parkingLot_ID);
+								int i = ps.executeUpdate();
+							} catch (SQLException sql2) {
+								request.setAttribute("error", sql);
+								out.println(sql2);
 							}
 						}
+							}
+
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
 					%>
 					<h2>Current Selected Parking Lot</h2>
@@ -97,16 +121,13 @@
 						try {
 							connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingfinder_db", "root", "strawberry");
 							statement = connection.createStatement();
-							String username = request.getParameter("username");
-							String password = request.getParameter("password");
-							String sql = "SELECT * FROM users Where user_Username = 'Gdragon' AND user_Password = 'gdthebest'";
+							String sql = "SELECT * FROM currentuser";
 
 							resultSet = statement.executeQuery(sql);
 
 							while (resultSet.next()) {
 								out.println(resultSet.getString("parkingLot_Name"));
 							}
-
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

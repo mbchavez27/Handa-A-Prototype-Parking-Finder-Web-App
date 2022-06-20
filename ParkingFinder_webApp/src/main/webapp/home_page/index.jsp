@@ -1,9 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.Connection"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ page import="java.sql.*"%>
+<%!String driverName = "com.mysql.jdbc.Driver";%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,6 +29,55 @@
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+	<!-- Changing User from logout -->
+	<%
+	String userID;
+	try {
+		Class.forName("com.mysql.jdbc.Driver");
+	} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+	}
+
+	Connection connection2 = null;
+	Statement statement2 = null;
+	ResultSet resultSet2 = null;
+
+	try {
+		connection2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingfinder_db", "root", "strawberry");
+		statement2 = connection2.createStatement();
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String sql = "SELECT * FROM users Where user_Username = '" + username + "' AND user_Password = '" + password + "'";
+
+		resultSet2 = statement2.executeQuery(sql);
+
+		while (resultSet2.next()) {
+			userID = resultSet2.getString("user_ID");
+	
+
+	if (userID != null) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			Class.forName(driverName);
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingfinder_db", "root", "strawberry");
+			String sql2 = "Update currentuser_tbl set user_ID=?";
+			ps = con.prepareStatement(sql2);
+			ps.setString(1, userID);
+
+			int i = ps.executeUpdate();
+		} catch (SQLException sql2) {
+			request.setAttribute("error", sql);
+			out.println(sql);
+		}
+	}
+	}
+	} 
+	catch (SQLException sql) {
+		request.setAttribute("error", sql);
+		out.println(sql);
+	}
+	%>
 	<!-- Connection from MYSQL && Adding Variables -->
 	<%
 	try {
@@ -46,9 +93,7 @@
 	try {
 		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingfinder_db", "root", "strawberry");
 		statement = connection.createStatement();
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");	
-		String sql = "SELECT * FROM users Where user_Username = '"+username+"' AND user_Password = '"+password+"'";
+		String sql = "SELECT * FROM currentuser";
 
 		resultSet = statement.executeQuery(sql);
 
