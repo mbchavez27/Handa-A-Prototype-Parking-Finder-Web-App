@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ page import="java.sql.*"%>
+<%!String driverName = "com.mysql.jdbc.Driver";%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,18 +58,63 @@
 		<div class="menuCard" id="changeResults">
 			<div class="flexChangePark">
 				<div class="flexText">
+					<!-- Connection from MYSQL && Adding Variables -->
+					<%
+					String ID = "30";
+					String parkingLot_ID = request.getParameter("selectedParkingLot");
+					if (parkingLot_ID != null) {
+						if (ID != null) {
+							Connection con = null;
+							PreparedStatement ps = null;
+							int user_ID = Integer.parseInt(ID);
+							try {
+						Class.forName(driverName);
+						con = DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingfinder_db", "root", "strawberry");
+						String sql = "Update user_tbl set parkingLot_ID=? where user_ID=" + 30;
+						ps = con.prepareStatement(sql);
+						ps.setString(1, parkingLot_ID);
+						int i = ps.executeUpdate();
+							} catch (SQLException sql) {
+						request.setAttribute("error", sql);
+						out.println(sql);
+							}
+						}
+					}
+					%>
 					<h2>Current Selected Parking Lot</h2>
 					<p>
 						<%
-						String parkingLotName = request.getParameter("selectedParkingLot");
-						if (parkingLotName == null) {
-							out.println("No Parking Lot Selected");
-						} else {
-							out.println(parkingLotName);
+						try {
+							Class.forName("com.mysql.jdbc.Driver");
+						} catch (ClassNotFoundException e) {
+							e.printStackTrace();
+						}
+
+						Connection connection = null;
+						Statement statement = null;
+						ResultSet resultSet = null;
+
+						try {
+							connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingfinder_db", "root", "strawberry");
+							statement = connection.createStatement();
+							String username = request.getParameter("username");
+							String password = request.getParameter("password");
+							String sql = "SELECT * FROM users Where user_Username = 'Gdragon' AND user_Password = 'gdthebest'";
+
+							resultSet = statement.executeQuery(sql);
+
+							while (resultSet.next()) {
+								out.println(resultSet.getString("parkingLot_Name"));
+							}
+
+						} catch (Exception e) {
+							e.printStackTrace();
 						}
 						%>
 					</p>
+
 				</div>
+
 			</div>
 		</div>
 		<div class="menuCard" id="changeParkingLot">
@@ -78,8 +125,32 @@
 					<select class="selectedParkingLot" name="selectedParkingLot"
 						id="selectedParkingLot">
 						<%
-						for (int i = 0; i < 30; i++) {
-							out.println("<option value=\"#"+i+" Open Parking\">#"+i+" Open Parking");
+						try {
+							Class.forName("com.mysql.jdbc.Driver");
+						} catch (ClassNotFoundException e) {
+							e.printStackTrace();
+						}
+
+						Connection connection2 = null;
+						Statement statement2 = null;
+						ResultSet resultSet2 = null;
+
+						try {
+							connection2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingfinder_db", "root", "strawberry");
+							statement2 = connection.createStatement();
+							String username = request.getParameter("username");
+							String password = request.getParameter("password");
+							String sql = "SELECT * FROM parkinglot_tbl";
+
+							resultSet2 = statement.executeQuery(sql);
+
+							while (resultSet2.next()) {
+								int parkingID = resultSet2.getInt("parkingLot_ID");
+								out.println("<option  value=\"" + parkingID + "\")\">" + resultSet2.getString("parkingLot_Name") + " ");
+							}
+
+						} catch (Exception e) {
+							e.printStackTrace();
 						}
 						%>
 					</select>

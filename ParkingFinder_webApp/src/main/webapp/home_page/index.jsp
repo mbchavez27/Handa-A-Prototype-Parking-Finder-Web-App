@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,6 +31,29 @@
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+	<!-- Connection from MYSQL && Adding Variables -->
+	<%
+	try {
+		Class.forName("com.mysql.jdbc.Driver");
+	} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+	}
+
+	Connection connection = null;
+	Statement statement = null;
+	ResultSet resultSet = null;
+
+	try {
+		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingfinder_db", "root", "strawberry");
+		statement = connection.createStatement();
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");	
+		String sql = "SELECT * FROM users Where user_Username = '"+username+"' AND user_Password = '"+password+"'";
+
+		resultSet = statement.executeQuery(sql);
+
+		while (resultSet.next()) {
+	%>
 	<div class="d-flex justify-content-between w-100 nav">
 		<div class="logo">
 			<a href="/ParkingFinder_webApp/home_page/index.jsp"> <img
@@ -49,25 +76,18 @@
 	<!-- Greetings -->
 	<div class="container-fluid content">
 		<div class="greetingsCard">
-			<%
-			String username = request.getParameter("username");
-			if (username == null) {
-				out.println("<h1>Hello User</h1>");
-			} else {
-				out.println("<h1>Hello " + username.replaceAll("\\s","_") + "</h1>");
-			}
-			%>
-			<h2>
-				<%
-				String parkingLotname = "Podium Open Parking";
-				try {
-					out.println(parkingLotname);
-				} catch (Exception e) {
-					out.println("No Parking Lot Currently Selected");
-				}
-				%>
-			</h2>
+			<h1>
+				<%="Hello, " + resultSet.getString("user_Username")%>
+			</h1>
+			<h2><%=resultSet.getString("parkingLot_Name")%></h2>
 		</div>
+		<%
+		}
+
+		} catch (Exception e) {
+		e.printStackTrace();
+		}
+		%>
 		<!-- Menu -->
 		<div class="row justify-content-center">
 			<div class="col-12 menuCard">
@@ -98,8 +118,7 @@
 				</a>
 			</div>
 			<div class="col-6 menuCard">
-				<a
-					href="/ParkingFinder_webApp/AddFavorites_Page/index.jsp">
+				<a href="/ParkingFinder_webApp/AddFavorites_Page/index.jsp">
 					<h3>Add</h3>
 					<p>Favorite Parking lots</p>
 				</a>

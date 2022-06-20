@@ -1,3 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -115,7 +121,13 @@
 		<div class="menuCard" id="parkingRateInfo">
 			<h2>Parking Rates Info:</h2>
 			<h3>Base Price:</h3>
-			<h4>For First <% out.println(firstHours); %> hours</h4>
+			<h4>
+				For First
+				<%
+			out.println(firstHours);
+			%>
+				hours
+			</h4>
 			<p>
 				&#8369;
 				<%
