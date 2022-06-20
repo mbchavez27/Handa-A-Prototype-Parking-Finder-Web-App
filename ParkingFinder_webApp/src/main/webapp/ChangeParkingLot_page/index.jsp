@@ -175,7 +175,7 @@
 						}
 						%>
 					</select>
-					<button>Estimate</button>
+					<button>Change</button>
 				</p>
 			</form>
 		</div>

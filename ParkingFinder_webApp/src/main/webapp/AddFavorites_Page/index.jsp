@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ page import="java.sql.*"%>
+<%!String driverName = "com.mysql.jdbc.Driver";%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,6 +49,7 @@
 		</div>
 	</div>
 	<div class="container-fluid justify-content-center">
+
 		<div class="parkingLotName">
 			<h1>
 				<span><a href="/ParkingFinder_webApp/home_page/index.jsp">></a></span>
@@ -56,34 +59,134 @@
 		<div class="menuCard" id="changeResults">
 			<div class="flexChangePark">
 				<div class="flexText">
-					<h2>Current Favorites Parking Lot</h2>
-					<p>
-						<%
-						String parkingLotName = request.getParameter("selectedParkingLot");
-						if (parkingLotName == null) {
-							out.println("No Parking Lot Selected");
-						} else {
-							out.println(parkingLotName);
+					<%
+					try {
+						Class.forName("com.mysql.jdbc.Driver");
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					}
+
+					//get current user data
+					Connection connection = null;
+					Statement statement = null;
+					ResultSet resultSet = null;
+
+					try {
+						connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingfinder_db", "root", "strawberry");
+						statement = connection.createStatement();
+						String sql = "SELECT * FROM currentuser_tbl";
+
+						resultSet = statement.executeQuery(sql);
+
+						while (resultSet.next()) {
+							String parkingLot = request.getParameter("selectedParkingLot");
+							String userID = resultSet.getString("user_ID");
+
+							try {
+						Class.forName("com.mysql.jdbc.Driver");
+						Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingfinder_db", "root",
+								"strawberry");
+						Statement st = con.createStatement();
+						st.executeUpdate("insert ignore into favoriteparkinglots_tbl(parkingLot_ID,user_ID) values('" + parkingLot
+								+ "','" + userID + "')");
+							}
+
+							catch (Exception e) {
+						e.printStackTrace();
+							}
 						}
-						%>
-					</p>
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					%>
+					<h2>Current Favorites Parking Lot</h2>
+					<%
+					try {
+						Class.forName("com.mysql.jdbc.Driver");
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					}
+
+					//get current user data
+					Connection con = null;
+					Statement stmt = null;
+					ResultSet resultSets = null;
+
+					try {
+						con = DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingfinder_db", "root", "strawberry");
+						stmt = con.createStatement();
+						String sql2_2 = "SELECT * FROM currentuser_tbl";
+
+						resultSets = stmt.executeQuery(sql2_2);
+
+						while (resultSets.next()) {
+							String ID = resultSets.getString("user_ID");
+							int user_ID = Integer.parseInt(ID);
+
+							//get favorite parking lots 
+							Connection connection2 = null;
+							Statement statement2 = null;
+							ResultSet resultSet2 = null;
+
+							try {
+						connection2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingfinder_db", "root",
+								"strawberry");
+						statement2 = connection2.createStatement();
+						String sql2 = "SELECT * FROM favoriteparkinglots where user_ID=" + ID + " Group by parkingLot_Name";
+
+						resultSet2 = statement2.executeQuery(sql2);
+
+						while (resultSet2.next()) {
+							out.println("<p>" + resultSet2.getString("parkingLot_Name") + "</p>");
+						}
+
+							} catch (Exception e) {
+						e.printStackTrace();
+							}
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					%>
 				</div>
 			</div>
 		</div>
 		<div class="menuCard" id="changeParkingLot">
-			<form action="/ParkingFinder_webApp/ChangeParkingLot_page/index.jsp"
+			<form action="/ParkingFinder_webApp/AddFavorites_Page/index.jsp"
 				method="post">
 				<label for="selectedParkingLot">Add Favorite Parking Lots</label>
 				<p>
 					<select class="selectedParkingLot" name="selectedParkingLot"
 						id="selectedParkingLot">
 						<%
-						for (int i = 0; i < 30; i++) {
-							out.println("<option value=\"#"+i+" Open Parking\">#"+i+" Open Parking");
+						try {
+							Class.forName("com.mysql.jdbc.Driver");
+						} catch (ClassNotFoundException e) {
+							e.printStackTrace();
+						}
+
+						Connection connection3 = null;
+						Statement statement3 = null;
+						ResultSet resultSet3 = null;
+
+						try {
+							connection3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingfinder_db", "root", "strawberry");
+							statement3 = connection3.createStatement();
+							String sql3 = "SELECT * FROM parkinglot_tbl";
+
+							resultSet3 = statement3.executeQuery(sql3);
+
+							while (resultSet3.next()) {
+								int parkingID = resultSet3.getInt("parkingLot_ID");
+								out.println("<option  value=\"" + parkingID + "\")\">" + resultSet3.getString("parkingLot_Name") + " ");
+							}
+
+						} catch (Exception e) {
+							e.printStackTrace();
 						}
 						%>
 					</select>
-					<button>Estimate</button>
+					<button>Add</button>
 				</p>
 			</form>
 		</div>
