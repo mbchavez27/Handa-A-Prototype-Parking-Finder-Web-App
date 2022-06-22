@@ -1,2 +1,2 @@
 # Parking-Finder-Web-App
-APC project for PR2 made with Java EE 
+A SHS APC project for PR2 made with Java EE 
