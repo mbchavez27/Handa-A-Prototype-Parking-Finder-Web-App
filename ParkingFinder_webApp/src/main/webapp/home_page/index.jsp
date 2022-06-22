@@ -53,9 +53,8 @@
 
 		while (resultSet2.next()) {
 			userID = resultSet2.getString("user_ID");
-	
 
-	if (userID != null) {
+			if (userID != null) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
@@ -70,10 +69,9 @@
 			request.setAttribute("error", sql);
 			out.println(sql);
 		}
-	}
-	}
-	} 
-	catch (SQLException sql) {
+			}
+		}
+	} catch (SQLException sql) {
 		request.setAttribute("error", sql);
 		out.println(sql);
 	}
@@ -109,10 +107,18 @@
 			</a>
 		</div>
 		<div class="profile_picture">
-			<img src="profile_picture.jpg" alt="handa_logo">
+			<%
+			String defaultDp = "profile_picture.jpg";
+			if (resultSet.getString("image") == null || resultSet.getString("image").length() == 0) {
+				out.println("<img src=\"" + defaultDp + "\" alt=\"profile picture\">");
+			}
+			else{
+			out.println("<img src=\"" + resultSet.getString("image") + "\" alt=\"profile picture\">");
+			}
+			%>
 			<div class="logOut">
 				<a
-					href="http://localhost:8081/ParkingFinder_webApp/logIn_page/index.html">
+					href="http://localhost:8081/ParkingFinder_webApp/logIn_page/index.jsp">
 					<button class="logOutButton">Log-Out</button>
 				</a>
 			</div>
@@ -124,7 +130,16 @@
 			<h1>
 				<%="Hello, " + resultSet.getString("user_Username")%>
 			</h1>
-			<h2><%=resultSet.getString("parkingLot_Name")%></h2>
+			<h2>
+				<%
+				out.println("Parking Lot: " + resultSet.getString("parkingLot_Name"));
+				%>
+			</h2>
+			<h2>
+				<%
+				out.println("Available Parking Space: " + resultSet.getString("availableParkingSpace"));
+				%>
+			</h2>
 		</div>
 		<%
 		}
@@ -137,7 +152,7 @@
 		<div class="row justify-content-center">
 			<div class="col-12 menuCard">
 				<a
-					href="https://www.canva.com/design/DAE3wuz8yYM/6-Iw1-CzzeK-jmX6ZSOAMA/view?mode=prototype">
+					href="http://localhost:8081/ParkingFinder_webApp/Look_Page/index.jsp">
 					<h3>Look</h3>
 					<p>
 						for Available Parking <br /> Space

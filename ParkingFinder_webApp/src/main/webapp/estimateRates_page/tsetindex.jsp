@@ -42,39 +42,10 @@
 			</a>
 		</div>
 		<div class="profile_picture">
-			<%
-			try {
-				Class.forName("com.mysql.jdbc.Driver");
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-
-			Connection imgconnection = null;
-			Statement imgstatement = null;
-			ResultSet imgresultSet = null;
-
-			try {
-				imgconnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingfinder_db", "root", "strawberry");
-				imgstatement = imgconnection.createStatement();
-				String imgsql = "SELECT * FROM currentuser";
-
-				imgresultSet = imgstatement.executeQuery(imgsql);
-
-				while (imgresultSet.next()) {
-					String defaultDp = "profile_picture.jpg";
-					if (imgresultSet.getString("image") == null || imgresultSet.getString("image").length() == 0) {
-				out.println("<img src=\"" + defaultDp + "\" alt=\"profile picture\">");
-					} else {
-				out.println("<img src=\"" + imgresultSet.getString("image") + "\" alt=\"profile picture\">");
-					}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			%>
+			<img src="profile_picture.jpg" alt="handa_logo" />
 			<div class="logOut">
 				<a
-					href="http://localhost:8081/ParkingFinder_webApp/logIn_page/index.jsp">
+					href="http://localhost:8081/ParkingFinder_webApp/logIn_page/index.html">
 					<button class="logOutButton">Log-Out</button>
 				</a>
 			</div>
@@ -104,28 +75,15 @@
 					resultSet = statement.executeQuery(sql);
 
 					while (resultSet.next()) {
-						String parkingID = resultSet.getString("parkingLot_ID");
-						int parking_ID = Integer.parseInt(parkingID);
-						String parkingLot = resultSet.getString("parkingLot_Name");
-						out.println(parkingLot);
+						out.println(resultSet.getString("parkingLot_Name"));
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				%>
 			</h1>
 		</div>
 		<div class="menuCard" id="estimatedResults">
-			<%
-			Connection con = null;
-			Statement stmt = null;
-			ResultSet resultSets = null;
-
-			try {
-				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingfinder_db", "root", "strawberry");
-				stmt = connection.createStatement();
-				String sql2 = "select * from parkingRates where parkingLot_ID = " + parking_ID + "";
-
-				resultSets = statement.executeQuery(sql2);
-
-				while (resultSets.next()) {
-			%>
 			<div class="flexRate">
 				<div class="flexImage">
 					<img src="cashRate.png" />
@@ -136,11 +94,9 @@
 						&#8369; :
 						<%
 						//Variables
-						int baseRate = Integer.parseInt(resultSets.getString("WeekdayparkingBasePrice_rate"));
-						int succeedingRate = Integer.parseInt(resultSets.getString("WeekdayparkingSucceedingPrice_rate"));
-						int firstHours = Integer.parseInt(resultSets.getString("firstXHours"));
-						int dayParking = Integer.parseInt(resultSets.getString("DayParking_rate"));
-						int overNightParking = Integer.parseInt(resultSets.getString("OvernightParking_rate"));
+						int baseRate = 70;
+						int succeedingRate = 20;
+						int firstHours = 3;
 						//Logic for Parking Rates 
 						try {
 							int parkedHours = Integer.parseInt(request.getParameter("parkingRate"));
@@ -211,40 +167,8 @@
 				%>
 			</p>
 			<h3>Others:</h3>
-			<p>
-				Day Parking: &#8369;
-				<%
-				try {
-					out.println(dayParking);
-				} catch (Exception e) {
-					out.println("-");
-				}
-				%>
-			</p>
-			<p>
-				Overnight Parking: &#8369;
-				<%
-				try {
-					out.println(overNightParking);
-				} catch (Exception e) {
-					out.println("-");
-				}
-				%>
-			</p>
-			<%
-			//while loop to get parking lot data
-			}
-			//try catch to get parking lot data
-			} catch (Exception e) {
-			e.printStackTrace();
-			}
-			//from while loop to get current user 
-			}
-			//catch from try catch to get current user
-			} catch (Exception e) {
-			e.printStackTrace();
-			}
-			%>
+			<p>Day Parking: &#8369;-</p>
+			<p>Overnight Parking: &#8369;-</p>
 		</div>
 	</div>
 	<!-- Imports -->
@@ -255,4 +179,3 @@
 	<script src="scripts.js"></script>
 </body>
 </html>
-

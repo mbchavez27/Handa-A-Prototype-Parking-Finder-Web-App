@@ -39,10 +39,40 @@
 			</a>
 		</div>
 		<div class="profile_picture">
-			<img src="profile_picture.jpg" alt="handa_logo">
+			<%
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+
+			Connection imgconnection = null;
+			Statement imgstatement = null;
+			ResultSet imgresultSet = null;
+
+			try {
+				imgconnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingfinder_db", "root", "strawberry");
+				imgstatement = imgconnection.createStatement();
+				String imgsql = "SELECT * FROM currentuser";
+
+				imgresultSet = imgstatement.executeQuery(imgsql);
+
+				while (imgresultSet.next()) {
+					String defaultDp = "profile_picture.jpg";
+					if (imgresultSet.getString("image") == null || imgresultSet.getString("image").length() == 0) {
+						out.println("<img src=\"" + defaultDp + "\" alt=\"profile picture\">");
+					}
+					else{
+					out.println("<img src=\"" + imgresultSet.getString("image") + "\" alt=\"profile picture\">");
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			%>
 			<div class="logOut">
 				<a
-					href="http://localhost:8081/ParkingFinder_webApp/logIn_page/index.html">
+					href="http://localhost:8081/ParkingFinder_webApp/logIn_page/index.jsp">
 					<button class="logOutButton">Log-Out</button>
 				</a>
 			</div>
