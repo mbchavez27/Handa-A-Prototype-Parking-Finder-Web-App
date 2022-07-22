@@ -1,2 +1,8 @@
 # A Prototype Parking-Finder-Web-App
-SHS PR2 Project For APC
+**Description:** A Prototype Parking Finder Web app
+
+**For:** SHS PR2 Finals Project for APC
+
+## Project:
+### Screengrabs with designated features
+
