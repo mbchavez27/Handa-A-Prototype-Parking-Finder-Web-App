@@ -27,6 +27,7 @@
 	integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
 	crossorigin="anonymous" />
 <link rel="stylesheet" href="styles.css" />
+
 </head>
 <body>
 	<div class="d-flex justify-content-between w-100 nav">
@@ -84,7 +85,6 @@
 				<span><a href="/ParkingFinder_webApp/home_page/index.jsp">></a></span>
 				404 No records yet
 			</h1>
-		
 		</div>
 	</div>
 
