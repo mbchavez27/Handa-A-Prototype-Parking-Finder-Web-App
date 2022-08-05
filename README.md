@@ -11,7 +11,7 @@
 ### Able to Log in with username and password
 ![Log In](Screenshots/Login.png)
 
-### Able to Log in with username and password
+### Able to Sign up with username and password
 ![Log In](Screenshots/Signup.png)
 
 ### Able to Sign Up by inserting username, password, email, and optional image url
